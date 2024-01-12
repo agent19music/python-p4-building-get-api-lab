@@ -24,7 +24,18 @@ def bakeries():
 
 @app.route('/bakeries/<int:id>')
 def bakery_by_id(id):
-    return ''
+    bakery = Bakery.query.get(id)
+    bakery_list =[]
+
+    if bakery :
+        bakery_list.append({
+            'id': bakery.id ,
+            'name': bakery.name
+            })
+        return jsonify({"bakeries": bakery_list}), 200
+ 
+    else :
+       return jsonify({"error":"No such bakery"}),404
 
 @app.route('/baked_goods/by_price')
 def baked_goods_by_price():
